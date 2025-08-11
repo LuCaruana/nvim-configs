@@ -1,3 +1,5 @@
+-- this is for syntax highlighting
+
 local options = {
   ensure_installed = {
     "lua",
@@ -8,12 +10,17 @@ local options = {
     "bash",
     "html",
     "css",
-    "javascript", 
+    "javascript",
+    "typescript",
     "yaml",
     "toml",
     "markdown",
     "python",
-    "awk"
+    "awk",
+    "c",
+    "cpp",
+    "cmake",
+    "make",
   },
 
   highlight = {
