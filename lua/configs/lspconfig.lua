@@ -6,9 +6,14 @@ local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require("lspconfig")
 
+-- if you want to use the system available lsps or formatters,
+-- add the respective names to the mason-lspconfig and mason-conform
+-- ignore-install tables
+
 lspconfig.servers = {
   "lua_ls",
-  "clangd", -- if i want to use the system's one, add it to mason-lspconfig (and mason-conform for clang-format) ignore-install table
+  "clangd",
+  "gopls",
 }
 
 local defaults_servers = {}
@@ -58,4 +63,28 @@ lspconfig.clangd.setup({
   on_init = on_init,
   capabilities = capabilities,
 })
+
+lspconfig.gopls.setup({
+  on_attach = function(client, bufnr)
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+    on_attach(client, bufnr)
+  end,
+  on_init = on_init,
+  capabilities = capabilities,
+  cmd = { "gopls" },
+  filetypes = { "go", "gomod", "gotmpl", "gowork" },
+  root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      completeUnimported = true,
+      usePlaceholders = true,
+      staticcheck = true,
+    },
+  },
+})
+
 -- read :h vim.lsp.config for changing options of lsp servers

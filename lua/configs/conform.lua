@@ -3,6 +3,7 @@ local options = {
     lua = { "stylua" },
     c = { "clang-format" },
     cpp = { "clang-format" },
+    go = { "gofumpt", "goimports-reviser", "golines" },
   },
 
   formatters = {
@@ -16,6 +17,10 @@ local options = {
           PackConstructorInitializers: Never \
         }",
       },
+    },
+    -- Golang
+    ["goimports-reviser"] = {
+      prepend_args = { "-rm-unused" },
     },
   },
 
