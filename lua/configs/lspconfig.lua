@@ -14,9 +14,11 @@ lspconfig.servers = {
   "lua_ls",
   "clangd",
   "gopls",
+  "ruff",
+  "pyright",
 }
 
-local defaults_servers = {}
+local defaults_servers = { "ruff", "pyright" }
 
 -- enable servers with defaults
 
@@ -83,6 +85,29 @@ lspconfig.gopls.setup({
       completeUnimported = true,
       usePlaceholders = true,
       staticcheck = true,
+    },
+  },
+})
+
+lspconfig.ruff.setup({
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  root_dir = lspconfig.util.root_pattern(".git", "uv.lock", "pyptoject.toml"),
+})
+
+lspconfig.pyright.setup({
+  on_attach = function(client)
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+
+    on_attach(client)
+  end,
+  on_init = on_init,
+  capabilities = capabilities,
+  settings = {
+    python = {
+      typeCheckingMode = "off",
     },
   },
 })
