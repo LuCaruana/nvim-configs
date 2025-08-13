@@ -51,4 +51,19 @@ return {
       require("configs.mason-lint")
     end,
   },
+  {
+    "windwp/nvim-ts-autotag",
+    ft = {
+      "html",
+      "astro",
+      "typescript",
+      "typescriptreact",
+      "javascript",
+      "javascriptreact",
+    },
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("configs.nvim-ts-autotag")
+    end,
+  },
 }

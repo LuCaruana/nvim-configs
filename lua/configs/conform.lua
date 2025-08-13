@@ -5,6 +5,10 @@ local options = {
     cpp = { "clang-format" },
     go = { "gofumpt", "goimports-reviser", "golines" },
     python = { "ruff" },
+    html = { "prettier" },
+    css = { "prettier" },
+    javascript = { "prettier" },
+    typescript = { "prettier" },
   },
 
   formatters = {

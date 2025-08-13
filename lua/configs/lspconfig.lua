@@ -16,9 +16,24 @@ lspconfig.servers = {
   "gopls",
   "ruff",
   "pyright",
+  "ts_ls",
+  "html",
+  "cssls",
+  "astro",
+  "tailwindcss",
+  "eslint",
 }
 
-local defaults_servers = { "ruff", "pyright" }
+local defaults_servers = {
+  "ruff",
+  "pyright",
+  "ts_ls",
+  "html",
+  "cssls",
+  "astro",
+  "tailwindcss",
+  "eslint",
+}
 
 -- enable servers with defaults
 
