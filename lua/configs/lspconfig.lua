@@ -13,8 +13,8 @@ local lspconfig = require("lspconfig")
 lspconfig.servers = {
   "lua_ls",
   "clangd",
-  "gopls",
   "ruff",
+  "gopls",
   "pyright",
   "ts_ls",
   "html",
@@ -105,10 +105,12 @@ lspconfig.gopls.setup({
 })
 
 lspconfig.ruff.setup({
-  on_attach = on_attach,
+  on_attach = function(client)
+    client.server_capabilities.hoverProvider = false
+  end,
   on_init = on_init,
   capabilities = capabilities,
-  root_dir = lspconfig.util.root_pattern(".git", "uv.lock", "pyptoject.toml"),
+  root_dir = lspconfig.util.root_pattern("uv.lock", "pyproject.toml"),
 })
 
 lspconfig.pyright.setup({
@@ -121,8 +123,13 @@ lspconfig.pyright.setup({
   on_init = on_init,
   capabilities = capabilities,
   settings = {
+    pyright = {
+      disableOrganizeImports = true,
+    },
     python = {
-      typeCheckingMode = "off",
+      analysis = {
+        ignore = { "*" },
+      },
     },
   },
 })
